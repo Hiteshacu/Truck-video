@@ -137,36 +137,75 @@ The following fields are required in the request body:
     }
     ```
 
-### Example Request
-```bash
-POST /users/login HTTP/1.1
-Content-Type: application/json
+---
 
-{
-  "email": "john.doe@example.com",
-  "password": "password123"
-}
-```
+## Endpoint: `/users/profile`
 
-### Example Response
+### Description
+This endpoint is used to retrieve the profile of the currently authenticated user.
+
+### Method
+`GET`
+
+### Headers
+- `Authorization`: `Bearer <JWT token>` (required)
+
+### Responses
+
 #### Success
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "user": {
-    "_id": "643d2f9b8f1b2c001c8e4e5d",
+- **Status Code:** `200 OK`
+- **Response Body:**
+  ```json
+  {
+    "_id": "string",
     "fullname": {
-      "firstname": "John",
-      "lastname": "Doe"
+      "firstname": "string",
+      "lastname": "string"
     },
-    "email": "john.doe@example.com"
+    "email": "string"
   }
-}
-```
+  ```
 
-#### Error
-```json
-{
-  "message": "Invalid user or password"
-}
-```
+#### Errors
+- **Status Code:** `401 Unauthorized`
+  - **Reason:** Missing or invalid token.
+  - **Response Body:**
+    ```json
+    {
+      "message": "Unauthorized"
+    }
+    ```
+
+---
+
+## Endpoint: `/users/logout`
+
+### Description
+This endpoint is used to log out the currently authenticated user. It clears the authentication token and blacklists it to prevent reuse.
+
+### Method
+`GET`
+
+### Headers
+- `Authorization`: `Bearer <JWT token>` (required)
+
+### Responses
+
+#### Success
+- **Status Code:** `200 OK`
+- **Response Body:**
+  ```json
+  {
+    "message": "Logged out"
+  }
+  ```
+
+#### Errors
+- **Status Code:** `401 Unauthorized`
+  - **Reason:** Missing or invalid token.
+  - **Response Body:**
+    ```json
+    {
+      "message": "Unauthorized"
+    }
+    ```
