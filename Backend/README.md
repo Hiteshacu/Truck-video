@@ -223,34 +223,22 @@ This endpoint is used to register a new captain in the system. It validates the 
 `POST`
 
 ### Request Body
-The following fields are required in the request body:
-
 ```json
 {
   "fullname": {
-    "firstname": "string (min length: 3, required)",
-    "lastname": "string (min length: 3, optional)"
+    "firstname": "string", // required, min length: 3
+    "lastname": "string" // optional, min length: 3
   },
-  "email": "string (valid email format, required)",
-  "password": "string (min length: 6, required)",
+  "email": "string", // required, valid email format
+  "password": "string", // required, min length: 6
   "vehicle": {
-    "color": "string (min length: 3, required)",
-    "plate": "string (min length: 3, required)",
-    "capacity": "integer (min: 1, required)",
-    "vehicleType": "string (one of: 'flattruck', 'boxtruck', 'truck', required)"
+    "color": "string", // required, min length: 3
+    "plate": "string", // required, min length: 3
+    "capacity": 1, // required, integer, min: 1
+    "vehicleType": "string" // required, one of: 'flattruck', 'boxtruck', 'truck'
   }
 }
 ```
-
-### Validation Rules
-- `fullname.firstname`: Must be at least 3 characters long.
-- `fullname.lastname`: Optional, but if provided, must be at least 3 characters long.
-- `email`: Must be a valid email address.
-- `password`: Must be at least 6 characters long.
-- `vehicle.color`: Must be at least 3 characters long.
-- `vehicle.plate`: Must be at least 3 characters long.
-- `vehicle.capacity`: Must be an integer greater than or equal to 1.
-- `vehicle.vehicleType`: Must be one of the following: `flattruck`, `boxtruck`, `truck`.
 
 ### Responses
 
@@ -259,9 +247,9 @@ The following fields are required in the request body:
 - **Response Body:**
   ```json
   {
-    "token": "string (JWT token)",
+    "token": "string", // JWT token
     "captain": {
-      "_id": "string",
+      "_id": "string", // unique ID of the captain
       "fullname": {
         "firstname": "string",
         "lastname": "string"
@@ -270,7 +258,7 @@ The following fields are required in the request body:
       "vehicle": {
         "color": "string",
         "plate": "string",
-        "capacity": "integer",
+        "capacity": 1,
         "vehicleType": "string"
       }
     }
@@ -285,9 +273,9 @@ The following fields are required in the request body:
     {
       "errors": [
         {
-          "msg": "string (error message)",
-          "param": "string (field name)",
-          "location": "string (body)"
+          "msg": "string", // error message
+          "param": "string", // field name
+          "location": "string" // body, query, or params
         }
       ]
     }
@@ -310,18 +298,12 @@ This endpoint is used to authenticate an existing captain. It validates the inpu
 `POST`
 
 ### Request Body
-The following fields are required in the request body:
-
 ```json
 {
-  "email": "string (valid email format, required)",
-  "password": "string (min length: 6, required)"
+  "email": "string", // required, valid email format
+  "password": "string" // required, min length: 6
 }
 ```
-
-### Validation Rules
-- `email`: Must be a valid email address.
-- `password`: Must be at least 6 characters long.
 
 ### Responses
 
@@ -330,9 +312,9 @@ The following fields are required in the request body:
 - **Response Body:**
   ```json
   {
-    "token": "string (JWT token)",
+    "token": "string", // JWT token
     "captain": {
-      "_id": "string",
+      "_id": "string", // unique ID of the captain
       "fullname": {
         "firstname": "string",
         "lastname": "string"
@@ -341,7 +323,7 @@ The following fields are required in the request body:
       "vehicle": {
         "color": "string",
         "plate": "string",
-        "capacity": "integer",
+        "capacity": 1,
         "vehicleType": "string"
       }
     }
@@ -356,9 +338,9 @@ The following fields are required in the request body:
     {
       "errors": [
         {
-          "msg": "string (error message)",
-          "param": "string (field name)",
-          "location": "string (body)"
+          "msg": "string", // error message
+          "param": "string", // field name
+          "location": "string" // body, query, or params
         }
       ]
     }
@@ -384,7 +366,11 @@ This endpoint is used to retrieve the profile of the currently authenticated cap
 `GET`
 
 ### Headers
-- `Authorization`: `Bearer <JWT token>` (required)
+```json
+{
+  "Authorization": "Bearer <JWT token>" // required
+}
+```
 
 ### Responses
 
@@ -393,7 +379,7 @@ This endpoint is used to retrieve the profile of the currently authenticated cap
 - **Response Body:**
   ```json
   {
-    "_id": "string",
+    "_id": "string", // unique ID of the captain
     "fullname": {
       "firstname": "string",
       "lastname": "string"
@@ -402,7 +388,7 @@ This endpoint is used to retrieve the profile of the currently authenticated cap
     "vehicle": {
       "color": "string",
       "plate": "string",
-      "capacity": "integer",
+      "capacity": 1,
       "vehicleType": "string"
     }
   }
@@ -429,7 +415,11 @@ This endpoint is used to log out the currently authenticated captain. It clears 
 `GET`
 
 ### Headers
-- `Authorization`: `Bearer <JWT token>` (required)
+```json
+{
+  "Authorization": "Bearer <JWT token>" // required
+}
+```
 
 ### Responses
 
